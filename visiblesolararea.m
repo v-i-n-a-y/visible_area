@@ -9,7 +9,7 @@ r       = 696340;       % Radius of body [km]
 u       = 147.72e6;     % Unit Length [km]
 d       = 147.72e6;     % Max sim distance [km]
 
-int     = 10000;        % Plotting interval [km]
+int     = 10;        % Plotting interval [km]
 
 x       = 0:(d/int)-1;  % Initialise array for x values
 a       = x;            % Initialise array for area values
@@ -27,8 +27,9 @@ for h = int:int:d
 end
 
 figure(1);
+set(gca,'FontSize',18, "fontname", "times")
 hold on; 
-plot(x./u, a,"--.")
-xlabel("Height [Au]");
-ylabel("Visible Area [km^2]");
+plot(x./u, a,"--.", 'color', 'black')
+xlabel("Distance from Solar Surface [Au]");
+ylabel("Visible Solar Area [km^2]");
 title("Visible Area of Sun from 0 to " + x(length(x))/u+" Au")
