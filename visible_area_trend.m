@@ -1,25 +1,45 @@
+
 % Change in visible area of sphere with distance
-% Vinay Williams 
-% 22/11/21
+%
+% Written by Vinay 
+%
+% Started on : 22nd November 2021
 %
 % Last Modified: 1st Feruary 2022
+%
+% Description:
+%
+%       Calculate the trend in visible area of a spherical body as distance
+%       between it and the observer changes
 %
 % Mandatory Inputs:
 %       flag_plot - boolean (true/false)
 %                   Specifies whether to plot trend or not
 %
 % Optional Inputs:
-%       radius - Requirnumeric value for the radius of the observed body
+%
+%       radius - Requires two values to be passed in
+%                * 1st is numeric value for the radius of the observed body
+%                * 2nd is a string representing the name of the body
+%
 %       unit   - requires two values to be passed 
 %                * 1st is a numeric value for the unit of distance to use 
 %                   for plotting
 %                * 2nd is a string value for the label for the unit to use 
 %                   on the plots
+%
 %       distance - maximum simulation distance 
+%
 %       interval - interval to simulate distance at
 %       
+% Outputs:
+%
+%       area - matrix with area values
+%
+%       dist - matrix with distance values from observed body
+%
 
-function area = visible_area(flag_plot, varargin)
+function [dist, area] = visible_area_trend(flag_plot, varargin)
 
     radius = 696340;        % Radius of observed body (default = sun)
     unit = 147.72e6;        % Unit length (default = 1 astronomical unit)
@@ -29,7 +49,7 @@ function area = visible_area(flag_plot, varargin)
     dist = 0:(distance/interval)-1;     % Array for distance values
     area = dist;                        % Array for area values
     
-    a = @(h) 2*pi*radius^2*(h/(radius+h)); % Calculation function
+    
     
     name = "Solar";
     units = "Au";
@@ -61,7 +81,7 @@ function area = visible_area(flag_plot, varargin)
     % Calculation loop
     for h = interval:interval:distance
         dist(h/interval) = h;
-        area(h/interval) = a(h);
+        area(h/interval) = visible_area(radius, h);
     end
     
     if flag_plot == true
